@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <changeSet id="create_agencies_table" author="délanno">
+        <createTable tableName="agencies">
+            <!-- Colonne ID -->
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+
+            <!-- Colonne name -->
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <!-- Colonne lastName -->
+            <column name="status" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="manager_id" type="bigint" />
+            <column name="user_id" type="bigint" />
+
+            <!-- Colonne created -->
+            <column name="created" type="timestamp" />
+
+            <!-- Colonne deadline -->
+            <column name="deadline" type="timestamp" />
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="agencies" baseColumnNames="user_id"
+            referencedTableName="users" referencedColumnNames="id"
+            constraintName="fk_user_id_users" onDelete="CASCADE" />
+    </changeSet>
+
+</databaseChangeLog>

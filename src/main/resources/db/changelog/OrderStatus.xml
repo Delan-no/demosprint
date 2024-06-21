@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <changeSet id="add_order_status_table" author="délanno">
+        <createTable tableName="order_status">
+            <!-- Colonne ID -->
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+
+            <!-- Colonne pour status -->
+            <column name="status" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <!-- Ajout des valeurs pour l'énumération ODERSTATUS -->
+    <changeSet id="add_order_status_values" author="délanno">
+        <sql>INSERT INTO order_status (status) VALUES ('RECEIVED')</sql>
+        <sql>INSERT INTO order_status (status) VALUES ('PRODUCTION')</sql>
+        <sql>INSERT INTO order_status (status) VALUES ('DONE')</sql>
+    </changeSet>
+
+</databaseChangeLog>
