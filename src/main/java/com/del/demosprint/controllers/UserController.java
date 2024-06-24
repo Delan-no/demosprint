@@ -24,10 +24,29 @@ public class UserController {
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }   
-    
     // Méthode pour ajouter un utilisateur
     @PostMapping
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
+    }
+
+    // Méthode pour supprimer un utilisateur
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        User user = userService.getUserById(id);
+        if (user!= null) {
+            user.setName(updatedUser.getName());
+            user.setLastName(updatedUser.getLastName());
+            user.setMail(updatedUser.getMail());
+            user.setPhoneNumber(updatedUser.getPhoneNumber());
+            return userService.addUser(user);
+        } else {
+            return null;
+        }
     }
 }

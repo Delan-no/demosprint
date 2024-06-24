@@ -28,4 +28,14 @@ public class UserService {
         // System.out.println(user);
         return userRepository.save(user);
     }
+
+    // Méthode pour supprimer un utilisateur
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    // Méthode pour modifier un utilisateur
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
 }
