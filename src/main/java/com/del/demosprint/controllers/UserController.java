@@ -1,5 +1,7 @@
 package com.del.demosprint.controllers;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.del.demosprint.models.User;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     // Injection du service UserService
     @Autowired
@@ -23,7 +26,8 @@ public class UserController {
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
-    }   
+    }
+
     // Méthode pour ajouter un utilisateur
     @PostMapping
     public User addUser(@RequestBody User user) {
@@ -39,7 +43,7 @@ public class UserController {
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
         User user = userService.getUserById(id);
-        if (user!= null) {
+        if (user != null) {
             user.setName(updatedUser.getName());
             user.setLastName(updatedUser.getLastName());
             user.setMail(updatedUser.getMail());
@@ -49,4 +53,16 @@ public class UserController {
             return null;
         }
     }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user, HttpSession session) {
+        User authenticatedUser = userService.authenticate(user.getUsername(), user.getPassword());
+        if (authenticatedUser != null) {
+            session.setAttribute("user", authenticatedUser);
+            return "Login successful";
+        } else {
+            throw new RuntimeException("Invalid username or password");
+        }
+    }
 }
+
