@@ -64,5 +64,11 @@ public class UserController {
             throw new RuntimeException("Invalid username or password");
         }
     }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "Logout successful";
+    }
 }
 

@@ -14,6 +14,7 @@ public class PrestationService {
 
     // Méthode pour obtenir tous les utilisateurs
     public List<Prestation> getAllPrestations() {
+        
         return prestationRepository.findAll();
     }
 
